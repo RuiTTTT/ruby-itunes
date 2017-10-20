@@ -18,20 +18,26 @@ class MyErr
 			then puts "Error: Item #{@holder} raised #{@type} in #{@method}"
 		elsif @type == "not_found_error"
 			then puts "Error: #{@holder} was #{@type} in #{@method}"
+    elsif @type == "ID Exception in songs"
+      then puts "Error: #{@holder} has #{@type} in #{@method}"
+    elsif @type == "ID Exception in owners"
+      then puts "Error: #{@holder} has #{@type} in #{@method}"
 		else puts "Error: Have been given an unknown error type: #{@type}"
 		end
 	end
 
+  # the method for checking missing id
 	def self.file_check(id)
 		if id.instance_of?(String) != true
-		then throw :invalid_id
-		end
+		then raise "Missing or Invalid ID"
+    end
 
 	end
 
+  # the method for checking repeat id
 	def self.unique_check(id_array,id)
 		if id_array.include?(id)
-			then throw :repeated_id
+			then raise "Repeated ID"
 		end
 	end
 end

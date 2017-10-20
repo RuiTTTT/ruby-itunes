@@ -15,7 +15,7 @@ require_relative 'error'
 #owners_file = ARGV[1]                 #for command line
 
 reader = Reader.new
-songs_file = 'songs.csv'             #in RubyMine
+songs_file = 'song.csv'             #in RubyMine
 owners_file = 'owners.csv'           #in RubyMine
 
 puts "\nProcessing Songs from file: #{songs_file}"
@@ -36,19 +36,19 @@ $albums = Album.build_all()
 puts $albums
 
 # Given the name of a song and a person; let them buy the song
-puts "\nMarkk buys The Cure..."
-song1 = Util.fetch("The Cure")
-mark =   Util.fetch("markk")
-mark.to_s
+puts "\nRui buys Pieces..."
+song1 = Util.fetch("Pieces")
+rui =   Util.fetch("rui")
+rui.to_s
 song1.to_s
-mark.buys_song(song1)
+rui.buys_song(song1)
 song1.to_s
 
 # What songs does Markk own
-puts "\nHow many songs does Markk own..."
-p mark.what_songs_does_he_own().size
+puts "\nHow many songs does Rui own..."
+p rui.what_songs_does_he_own().size
 
-puts "\nPlay The Cure..."
+puts "\nPlay Pieces..."
 song1.play_song
 
 # Print out all songs

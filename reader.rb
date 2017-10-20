@@ -11,21 +11,18 @@ class Reader
 	  songs = []
 		ids = []
 	  CSV.foreach(csv_file_name, :headers => true) do |row|
-			MyErr.file_check(row[4])
-			songname, artist, album, time, id = row[0],row[1], row[2], row[3], row[4]
-			catch :invalid_id do
-				MyErr.new("Missing or Invalid ID", row, "read_in_songs").do_it
-				songname += '#'
+			begin      # begin block with the next in rescue to continue the loop if error occur.
+				MyErr.file_check(row[4])    # the method checking missing id
+				songname, artist, album, time, id = row[0],row[1], row[2], row[3], row[4]
+				MyErr.unique_check(ids,row[4])   # the method checking repeat id
+				ids.push(row[4])     # saves all the id that have appeared, for checking repeated ids
+				unless (songname =~ /#/)
+					songs << Song.new(songname,album,artist,time.to_f,nil,id)
+				end
+			rescue
+				MyErr.new("ID Exception in songs",csv_file_name,"read_in_songs").do_it  # print an error information
+				next  # continue the loop
 			end
-			ids.push(row[4])
-			MyErr.unique_check(ids,row[4])
-			catch :repeated_id do
-				MyErr.new("Repeated ID", id, "read_in_songs").do_it
-				songname += '#'
-			end
-	 	 unless (songname =~ /#/)
-	 	 	 songs << Song.new(songname,album,artist,time.to_f,nil,id)
-	 	 end
 	   end
 	  songs
 	end
@@ -36,21 +33,20 @@ class Reader
 	def read_in_ownership(csv_file_name, temp_hash = Hash.new)
 		ids = []
 	  CSV.foreach(csv_file_name, :headers => true) do |row|
-			MyErr.file_check(row[0])
-		  song_id, owner_data = row[0], row[1]
-			catch :invalid_id do
-				MyErr.new("Missing or Invalid ID", row, "read_in_ownership").do_it
-				songname += '#'
+			begin    # begin block with the next in rescue to continue the loop if error occur.
+				MyErr.file_check(row[0])    # the method checking missing id
+				song_id, owner_data = row[0], row[1]
+				MyErr.unique_check(ids,row[0])   # the method checking repeat id
+				ids.push(row[0])     # saves all the id that have appeared, for checking repeated ids
+				unless (song_id =~ /#/)
+					temp_hash[song_id] = owner_data
+					end
+
+			rescue
+				MyErr.new("ID Exception in owners",csv_file_name,"read_in_ownership").do_it
+				next   # continue the loop
 			end
-			ids.push(row[0])
-			MyErr.unique_check(ids,row[0])
-			catch :repeated_id do
-				MyErr.new("Repeated ID", id, "read_in_ownership").do_it
-				songname += '#'
-			end
-	 	  unless (song_id =~ /#/)
-	 	 	     temp_hash[song_id] = owner_data
-	 	      end
+
     end
     temp_hash
 	end

@@ -36,11 +36,11 @@ class Album
   # builds a single album, given the name of that album.
 
   def self.build_all(albums = [])
-		temp_album = Array.new
+		temp_album = Array.new   # saves all the album name
 		$songs.each {|song| temp_album.push(song.album)}
-		counts = Hash.new(0)
-		temp_album.each {|album| counts[album] += 1}
-		i = 0
+		counts = Hash.new(0)   # a hash table contains the album name and the number of songs in the album
+		temp_album.each {|album| counts[album] += 1}  # counts the number of songs
+		i = 0   # the index for slice the array
 		counts.each_key do |key|
 			albums << build_an_album_called(key,i,counts[key])
 			i+=counts[key]
@@ -53,7 +53,7 @@ class Album
   # to populate the various attributes of the album object.
 
   def self.build_an_album_called(album_name,index,counts)
-		temp_time = Array.new
+		temp_time = Array.new   # arrays saving details of songs
 		temp_artist = Array.new
 		temp_owner = Array.new
 		temp_track = Array.new
@@ -64,7 +64,9 @@ class Album
 			temp_track.push(song.name)
 		end
 		length = 0
-		temp_time[index,counts].each{|time|length += time}
+		temp_time[index,counts].each{|time|length += time}  # get the length of album by adding all the time of songs
+		# creating the album object by slicing the array
+		# track, artist and owner need to join to a string. artist and owner need to remove redundancy.
 		return Album.new(album_name,temp_track[index,counts].join(" & "), length, temp_artist[index,counts].uniq.join(" & "),temp_artist[index,counts].uniq.join(" & "))
 	end
 
