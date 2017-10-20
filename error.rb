@@ -21,5 +21,17 @@ class MyErr
 		else puts "Error: Have been given an unknown error type: #{@type}"
 		end
 	end
-	
+
+	def self.file_check(id)
+		if id.instance_of?(String) != true
+		then throw :invalid_id
+		end
+
+	end
+
+	def self.unique_check(id_array,id)
+		if id_array.include?(id)
+			then throw :repeated_id
+		end
+	end
 end
