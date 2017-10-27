@@ -11,7 +11,9 @@ require_relative 'reader'
 require_relative 'utilities'
 require_relative 'error'
 require_relative 'data'
+require_relative 'predicate'
 
+include Predicate
 #songs_file = ARGV[0]                  #for command line
 #owners_file = ARGV[1]                 #for command line
 
@@ -31,7 +33,10 @@ data.hashes = reader.read_in_ownership(owners_file)
 puts "Building all owners..."
 #$actors = Actor.build_all()
 data.actors = Actor.build_all(data)
-puts data.actors
+#puts data.actors
+data.actors.each do |actor|
+  Predicate.to_sa(actor)
+end
 
 puts "Updating songs with ownership details..."
 #$songs.each{|song| song.owners = $hash_owners[song.id]}
@@ -40,16 +45,22 @@ data.songs.each{|song| song.owners = data.hashes[song.id]}
 puts "Building All Albums..."
 #$albums = Album.build_all()
 data.albums = Album.build_all(data)
-puts data.albums
+#puts data.albums
+data.albums.each do |album|
+  Predicate.to_sa(album)
+end
 
 # Given the name of a song and a person; let them buy the song
 puts "\nRui buys Pieces..."
-song1 = Util.fetch(data,"Pieces")
+song1 = Util.fetch(data,"Yesterdays")
 rui =   Util.fetch(data, "rui")
-rui.to_s
-song1.to_s
+Predicate.to_sa(rui)
+Predicate.to_sa(song1)
+#rui.to_s
+#song1.to_s
 rui.buys_song(song1)
-song1.to_s
+Predicate.to_sa(song1)
+#song1.to_s
 
 # What songs does Markk own
 puts "\nHow many songs does Rui own..."

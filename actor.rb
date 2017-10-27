@@ -1,9 +1,10 @@
 #!/usr/bin/ruby -w
 # ACTOR
 # Copyright Mark Keane, All Rights Reserved, 2014
-
+require_relative 'predicate'
 # Class that encodes details of actors that own songs/albums.
 class Actor
+	include Predicate
 	attr_accessor :name, :id
 	def initialize(name)
 		@name = name
@@ -11,14 +12,14 @@ class Actor
 	end
 
   # Method that prints out the contents of an actor object nicely.
-	def to_s
-		puts "Actor #{@name} has ID: #{@id}.\n"
-	end	
+	#def to_s
+	#	puts "Actor #{@name} has ID: #{@id}.\n"
+	#end
 	
 	# Method that checks if an object given to it is an actor.
-  def isa?
-		instance_of?(Actor)
-	end
+  #def isa?
+	#	instance_of?(Actor)
+	#end
 	
 	# Class method that builds all the actor objects using names originally from owners.csv.
   # Recall owners.csv got read into $hash_owners, we recover all the names associated with all

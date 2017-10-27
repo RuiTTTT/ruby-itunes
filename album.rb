@@ -1,9 +1,10 @@
 #!/usr/bin/ruby -w
 # ALBUM
 # Copyright Mark Keane, All Rights Reserved, 2014
-
+require_relative 'predicate'
 # Class that encodes details of an album.
 class Album
+	include Predicate
 	attr_accessor :name, :tracks, :length, :artist,:owners, :id
 	def initialize(name, tracks, length, artist, owners)
 		@name = name
@@ -15,14 +16,14 @@ class Album
 	end
 
   # Method that prints out the contents of an album object nicely.
-	def to_s
-		puts "The album #{@name} by #{@artist}. \n"
-	end	
+	#def to_s
+	#	puts "The album #{@name} by #{@artist}. \n"
+	#end
 
   # Method that checks if an object given to it is an album.
-	def isa?
-		instance_of?(Album)
-	end
+	#def isa?
+	#	instance_of?(Album)
+	#end
 
   # Method makes an album object; just uses Album.new; really
   # just being a bit explicit and obvious.

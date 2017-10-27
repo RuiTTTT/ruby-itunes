@@ -2,9 +2,10 @@
 # SONG
 # Copyright Mark Keane, All Rights Reserved, 2014
 
-
+require_relative 'predicate'
 # Class that encodes details of a song.
 class Song
+	include Predicate
 	attr_accessor :name, :album, :artist, :time, :owners, :id
 	def initialize(name, album, artist, time, owners, id)
 		@name = name
@@ -16,14 +17,14 @@ class Song
 	end
 
   # Method that prints out the contents of a song object nicely.
-	def to_s
-		puts "<< #{@name} >> by #{@artist} in their album #{@album} is owed by #{@owners} .\n"
-	end	
+	#def to_s
+	#	puts "<< #{@name} >> by #{@artist} in their album #{@album} is owed by #{@owners} .\n"
+	#end
 
   # Method that checks if the object given to it is a song.
-	def isa?
-		instance_of?(Song)
-	end
+	#def isa?
+	#	instance_of?(Song)
+	#end
 
   # Method that plays a song (sort of ;-)
 	def play_song
