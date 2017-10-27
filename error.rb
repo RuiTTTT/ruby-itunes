@@ -36,7 +36,7 @@ class MyErr
 
   # the method for checking repeat id
 	def self.unique_check(id_array,id)
-		if id_array.include?(id)
+		if id_array.include?(id) == true
 			then raise "Repeated ID"
 		end
 	end

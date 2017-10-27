@@ -35,14 +35,14 @@ class Album
   # It returns an array of album objects.  It calls another class method that
   # builds a single album, given the name of that album.
 
-  def self.build_all(albums = [])
+  def self.build_all(data, albums = [])
 		temp_album = Array.new   # saves all the album name
-		$songs.each {|song| temp_album.push(song.album)}
+		data.songs.each {|song| temp_album.push(song.album)}
 		counts = Hash.new(0)   # a hash table contains the album name and the number of songs in the album
 		temp_album.each {|album| counts[album] += 1}  # counts the number of songs
 		i = 0   # the index for slice the array
 		counts.each_key do |key|
-			albums << build_an_album_called(key,i,counts[key])
+			albums << build_an_album_called(data,key,i,counts[key])
 			i+=counts[key]
 		end
 		albums
@@ -52,12 +52,12 @@ class Album
   # builds up arrays of the song-names (tracks), runtimes, artist names.  These all get used
   # to populate the various attributes of the album object.
 
-  def self.build_an_album_called(album_name,index,counts)
+  def self.build_an_album_called(data, album_name,index,counts)
 		temp_time = Array.new   # arrays saving details of songs
 		temp_artist = Array.new
 		temp_owner = Array.new
 		temp_track = Array.new
-		$songs.each do |song|
+		data.songs.each do |song|
 			temp_time.push(song.time)
 			temp_artist.push(song.artist)
 			temp_owner.push(song.owners)
